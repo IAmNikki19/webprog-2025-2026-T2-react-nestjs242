@@ -7,7 +7,11 @@ const server = express();
 
 export const createServer = async () => {
     const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-    app.enableCors();
+    app.enableCors({
+        origin: ['http://localhost:5173', 'https://webprog-2025-2026-t2-react-nestjs241.vercel.app', /\.vercel\.app$/],
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        credentials: true,
+    });
     app.setGlobalPrefix('api');
     await app.init();
     return server;
